@@ -1,30 +1,46 @@
 import type { ReactNode } from "react";
-import { games, type Game } from "@/config/site";
-import { IconCheck, IconDownload, IconExternal, IconGithub, IconPlay } from "./icons";
+import { apkSafety, games, type Game } from "@/config/site";
+import { IconCheck, IconDownload, IconExternal, IconGithub, IconPlay, IconShield } from "./icons";
 import { Pill, Section, SectionHeading } from "./ui";
 
 function Links({ g }: { g: Game }) {
   const items = [
     g.links.repo && { href: g.links.repo, label: "Source", icon: <IconGithub width={14} height={14} /> },
-    g.links.apk && { href: g.links.apk, label: "Android APK", icon: <IconDownload width={14} height={14} /> },
     g.links.itch && { href: g.links.itch, label: "Play in browser", icon: <IconExternal width={14} height={14} /> },
     g.links.video && { href: g.links.video, label: "Gameplay video", icon: <IconPlay width={14} height={14} /> },
   ].filter(Boolean) as { href: string; label: string; icon: ReactNode }[];
-  if (!items.length) return null;
+  if (!items.length && !g.links.apk) return null;
   return (
-    <div className="mt-5 flex flex-wrap gap-2">
-      {items.map((l) => (
-        <a
-          key={l.label}
-          href={l.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-md border border-line-strong px-3 py-1.5 text-xs font-medium text-fg-2 transition-colors hover:border-accent/60 hover:text-accent"
-        >
-          {l.icon} {l.label}
-        </a>
-      ))}
-      {g.links.apk ? <span className="self-center text-[11px] text-muted">APK requires allowing installs from unknown sources.</span> : null}
+    <div className="mt-5">
+      <div className="flex flex-wrap gap-2">
+        {g.links.apk ? (
+          <a
+            href={g.links.apk}
+            download
+            rel="noopener"
+            className="inline-flex items-center gap-1.5 rounded-md bg-accent px-3 py-2 text-xs font-semibold text-ink-950 transition-colors hover:bg-[#5eead4]"
+          >
+            <IconDownload width={14} height={14} /> Download APK{g.apkSize ? ` · ${g.apkSize}` : ""}
+          </a>
+        ) : null}
+        {items.map((l) => (
+          <a
+            key={l.label}
+            href={l.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-md border border-line-strong px-3 py-1.5 text-xs font-medium text-fg-2 transition-colors hover:border-accent/60 hover:text-accent"
+          >
+            {l.icon} {l.label}
+          </a>
+        ))}
+      </div>
+      {g.links.apk && g.dataNote ? (
+        <p className="mt-2 flex items-start gap-1.5 text-[11px] leading-relaxed text-muted">
+          <IconShield width={13} height={13} className="mt-0.5 shrink-0 text-accent" />
+          <span>{g.dataNote}</span>
+        </p>
+      ) : null}
     </div>
   );
 }
@@ -129,6 +145,12 @@ export default function Games() {
           </p>
         }
       />
+      {games.some((g) => g.links.apk) ? (
+        <div className="mb-6 flex items-start gap-3 rounded-xl border border-accent/30 bg-accent-soft px-4 py-3 text-sm leading-relaxed text-fg-2">
+          <IconShield width={18} height={18} className="mt-0.5 shrink-0 text-accent" />
+          <p>{apkSafety}</p>
+        </div>
+      ) : null}
       <div className="space-y-4">
         {featured.map((g) => (
           <Featured key={g.name} g={g} />

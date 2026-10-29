@@ -58,3 +58,6 @@ export const IconDownload = (p: P) => (
 export const IconPlay = (p: P) => (
   <svg {...base(p)}><path d="M7 5v14l11-7z" /></svg>
 );
+export const IconShield = (p: P) => (
+  <svg {...base(p)}><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6z" /><path d="m9 12 2 2 4-4" /></svg>
+);

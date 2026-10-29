@@ -28,7 +28,7 @@ export const site = {
   resumePath: "/resume.pdf",
 
   // 👉 REPLACE after your first Vercel deploy (used for SEO, sitemap and social previews).
-  url: "https://venugopal-portfolio.vercel.app",
+  url: "https://venugopal-portfolio-weld.vercel.app",
 
   description:
     "Portfolio of Venugopal K, an entry-level Game Analyst from Bengaluru (BCA 2026) — SQL, Python, Power BI, Databricks and Unity game development applied to player engagement, retention and monetization.",
@@ -114,6 +114,10 @@ export type Game = {
   telemetryPlanned: string[];
   /** 👉 Paste links here. Empty or missing = hidden. APK: link the GitHub Release page. */
   links: GameLinkSet;
+  /** APK size shown on the download button, e.g. "79 MB". */
+  apkSize?: string;
+  /** What the Android build collects — keep this accurate. */
+  dataNote?: string;
   featured?: boolean;
 };
 
@@ -146,7 +150,9 @@ export const games: Game[] = [
       "Boss encounter → defeat funnel",
       "D1 / D7 retention once released",
     ],
-    links: { repo: "", apk: "", video: "", itch: "" },
+    links: { repo: "", apk: "https://github.com/Shannuvenu/VENUGOPAL_PORTFOLIO/raw/main/apks/EchoRunner.apk", video: "", itch: "" },
+    apkSize: "79 MB",
+    dataNote: "Includes Firebase Analytics: sends anonymous gameplay events (like run start and end) plus standard device info Firebase collects automatically (device model, OS, app version, advertising ID). No access to contacts, photos, files, camera, microphone or location.",
   },
   {
     name: "Mystery Bunker",
@@ -158,7 +164,9 @@ export const games: Game[] = [
     built: ["Playable core exploration", "Story structure with a sequel-tease ending", "Props and models generated in code (no asset packs)"],
     telemetryImplemented: [],
     telemetryPlanned: ["Firebase Analytics for chapter progression", "Where players get stuck or quit", "Session length and return rate"],
-    links: { repo: "", apk: "", video: "", itch: "" },
+    links: { repo: "", apk: "https://github.com/Shannuvenu/VENUGOPAL_PORTFOLIO/raw/main/apks/MysteryBunker.apk", video: "", itch: "" },
+    apkSize: "86 MB",
+    dataNote: "Collects nothing: no analytics or tracking in this build. The only permission is internet. No access to contacts, photos, files, camera, microphone or location.",
   },
   {
     name: "Gravity Is a Lie",
@@ -170,7 +178,9 @@ export const games: Game[] = [
     built: ["Core gravity mechanic", "Android APK builds tested on phone", "Firebase project created and google-services.json added"],
     telemetryImplemented: [],
     telemetryPlanned: ["Level start / complete / fail per level (difficulty curve)", "Time per level and hint use", "Player retention (D1 / D7)"],
-    links: { repo: "", apk: "", video: "", itch: "" },
+    links: { repo: "", apk: "https://github.com/Shannuvenu/VENUGOPAL_PORTFOLIO/raw/main/apks/GravityIsALie.apk", video: "", itch: "" },
+    apkSize: "43 MB",
+    dataNote: "Includes Firebase Analytics: sends anonymous gameplay events (like run start and end) plus standard device info Firebase collects automatically (device model, OS, app version, advertising ID). No access to contacts, photos, files, camera, microphone or location.",
   },
   {
     name: "Override Protocol",
@@ -187,9 +197,15 @@ export const games: Game[] = [
     ],
     telemetryImplemented: [],
     telemetryPlanned: ["Chapter completion funnel", "Feature usage (map, remote control)", "Retention after finishing Part 1"],
-    links: { repo: "", apk: "", video: "", itch: "" },
+    links: { repo: "", apk: "https://github.com/Shannuvenu/VENUGOPAL_PORTFOLIO/raw/main/apks/OverrideProtocol.apk", video: "", itch: "" },
+    apkSize: "31 MB",
+    dataNote: "Collects nothing: no analytics or tracking in this build. The only permission is internet. No access to contacts, photos, files, camera, microphone or location.",
   },
 ];
+
+/** Shown above the games when any APK link is set. */
+export const apkSafety =
+  "Safe to install: these are my own Unity builds, with no ads and no login. None of them asks for contacts, photos, files, camera, microphone or location. Android will warn because they aren't from the Play Store; tap “Install anyway”. Android phones only.";
 
 export const skills = [
   { group: "Analytics", items: ["SQL", "Python", "Pandas"], note: "Cohorts, funnels, KPI definitions, data cleaning and validation." },
