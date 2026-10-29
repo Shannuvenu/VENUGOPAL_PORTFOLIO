@@ -28,7 +28,7 @@ export const site = {
   resumePath: "/resume.pdf",
 
   // 👉 REPLACE after your first Vercel deploy (used for SEO, sitemap and social previews).
-  url: "https://venugopal-portfolio.vercel.app",
+  url: "https://venugopal-portfolio-weld.vercel.app",
 
   description:
     "Portfolio of Venugopal K, an entry-level Game Analyst from Bengaluru (BCA 2026) — SQL, Python, Power BI, Databricks and Unity game development applied to player engagement, retention and monetization.",
